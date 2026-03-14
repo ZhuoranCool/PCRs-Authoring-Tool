@@ -42,7 +42,7 @@ export function DescriptionBlock() {
                             type="text"
                             value={form.name}
                             onChange={handleChange}
-                            className="bg-gray-50 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                            className="bg-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                         ></input>
                     </div>
                     <div className="grid grid-cols-[120px_1fr] items-center gap-4">
@@ -52,7 +52,7 @@ export function DescriptionBlock() {
                             type="text"
                             value={form.description}
                             onChange={handleChange}
-                            className="bg-gray-50 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                            className="bg-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                         />
                     </div>
                     <div className="grid grid-cols-[120px_1fr] items-center gap-4">
@@ -62,7 +62,7 @@ export function DescriptionBlock() {
                             type="text"
                             value={form.tags}
                             onChange={handleChange}
-                            className="bg-gray-50 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                            className="bg-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                         />
                     </div>
                 </div>
