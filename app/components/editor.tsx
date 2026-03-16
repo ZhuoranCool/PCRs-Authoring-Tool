@@ -12,6 +12,6 @@ export function OnlineEditor() {
         typeInValue=typeInValue;
     }
 
-    return <Editor height="90vh" defaultLanguage="javascript" defaultValue="" onChange={handleChange}/>;
+    return <Editor height="30vh" defaultLanguage="javascript" defaultValue="" onChange={handleChange}/>;
 }
 

@@ -17,8 +17,9 @@ export function DescriptionBlock() {
         tags: ''
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, value } = e.target;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+        const { id, value } = target;
         setForm(prev => ({
             ...prev,
             [id]: value
@@ -47,9 +48,11 @@ export function DescriptionBlock() {
                     </div>
                     <div className="grid grid-cols-[120px_1fr] items-center gap-4">
                         <label className="text-xl">Description</label>
-                        <input
+                        <textarea
                             id="description"
-                            type="text"
+                            name="description"
+                            rows={4}
+                            cols={50}
                             value={form.description}
                             onChange={handleChange}
                             className="bg-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
