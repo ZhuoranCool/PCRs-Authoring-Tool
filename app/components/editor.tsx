@@ -1,17 +1,11 @@
 'use client'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 import Editor from '@monaco-editor/react';
 
+type OnlineEditorProps = {
+    language?: string;
+};
 
-export function OnlineEditor() {
-    let typeInValue="";
-    function handleChange(defaultValue: any){
-        typeInValue=typeInValue;
-    }
-
-    return <Editor height="30vh" defaultLanguage="javascript" defaultValue="" onChange={handleChange}/>;
+export function OnlineEditor({ language = "" }: OnlineEditorProps) {
+    return <Editor height="30vh" language={language} defaultValue="" />;
 }
-

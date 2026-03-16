@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState } from "react";
+import React, { ChangeEvent, useMemo, useState } from "react";
 import { OnlineEditor } from "./editor";
 
 type ExampleType = "example" | "hidden";
@@ -28,6 +28,7 @@ function makeExample(): TestExample {
 export function TestSpace() {
     const [activeTab, setActiveTab] = useState<"examples" | "full">("examples");
     const [examples, setExamples] = useState<TestExample[]>(() => [makeExample()]);
+    const [selectedLanguage, setSelectedLanguage]=useState('');
 
     const exampleCountLabel = useMemo(
         () => `Test Examples (${examples.length})`,
@@ -52,6 +53,10 @@ export function TestSpace() {
         setExamples((prev) => prev.filter((item) => item.id !== id));
     };
 
+    function handleLanguageSelection(event: ChangeEvent<HTMLSelectElement>){
+        setSelectedLanguage(event.target.value);
+    }
+
     return (
         <div className="bg-gray-200 px-4 py-4 shadow-md">
             <div className="flex items-center justify-between">
@@ -62,22 +67,20 @@ export function TestSpace() {
                 <button
                     type="button"
                     onClick={() => setActiveTab("examples")}
-                    className={`px-4 py-2 rounded-md text-sm font-semibold shadow-sm ${
-                        activeTab === "examples"
-                            ? "bg-gray-900 text-yellow-400"
-                            : "bg-white text-gray-700"
-                    }`}
+                    className={`px-4 py-2 rounded-md text-sm font-semibold shadow-sm ${activeTab === "examples"
+                        ? "bg-gray-900 text-yellow-400"
+                        : "bg-white text-gray-700"
+                        }`}
                 >
                     {exampleCountLabel}
                 </button>
                 <button
                     type="button"
                     onClick={() => setActiveTab("full")}
-                    className={`px-4 py-2 rounded-md text-sm font-semibold shadow-sm ${
-                        activeTab === "full"
-                            ? "bg-gray-900 text-yellow-400"
-                            : "bg-white text-gray-700"
-                    }`}
+                    className={`px-4 py-2 rounded-md text-sm font-semibold shadow-sm ${activeTab === "full"
+                        ? "bg-gray-900 text-yellow-400"
+                        : "bg-white text-gray-700"
+                        }`}
                 >
                     Example Full Code
                 </button>
@@ -203,7 +206,23 @@ export function TestSpace() {
 
             {activeTab === "full" && (
                 <div className="mt-6">
-                    <OnlineEditor />
+                    <div className="grid grid-cols-[110px_1fr] items-center gap-3">
+                        <label className="text-sm font-medium text-gray-700">Language</label>
+                        <select
+                            className="bg-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                            defaultValue=""
+                            id="languageSelect"
+                            onChange={handleLanguageSelection}
+                        >
+                            <option value="" disabled>Select a language</option>
+                            <option value="java">Java</option>
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                        </select>
+                    </div>
+                    <div className="mt-6">
+                        <OnlineEditor language={selectedLanguage}/>
+                    </div>
                 </div>
             )}
         </div>

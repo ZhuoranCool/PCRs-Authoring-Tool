@@ -1,8 +1,13 @@
 'use client'
 
+import { useState, type ChangeEvent } from "react";
 import { OnlineEditor } from "./editor";
 
 export function SourceCode() {
+    const [selectedLanguage, setSelectedLanguage] = useState("");
+    function handleLanguageSelection(event: ChangeEvent<HTMLSelectElement>){
+        setSelectedLanguage(event.target.value);
+    }
     return (
         <div className="bg-gray-200 px-4 py-4 shadow-md">
             <h1 className="text-lg font-bold text-gray-900">Source Code</h1>
@@ -20,11 +25,13 @@ export function SourceCode() {
                     <select
                         className="bg-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                         defaultValue=""
+                        id="languageSelect"
+                        onChange={handleLanguageSelection}
                     >
                         <option value="" disabled>Select a language</option>
                         <option value="java">Java</option>
                         <option value="python">Python</option>
-                        <option value="cpp">C++</option>
+                        <option value="javascript">JavaScript</option>
                     </select>
                 </div>
                 <div className="flex justify-end">
@@ -38,7 +45,7 @@ export function SourceCode() {
             </div>
 
             <div className="mt-4 grid gap-3" >
-                <OnlineEditor />
+                <OnlineEditor language={selectedLanguage} />
             </div>
 
             <div className="mt-4">
