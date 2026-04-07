@@ -7,37 +7,50 @@ export async function POST(req: Request) {
     const prompt= `You are a coding problem generator.
 
 Generate exactly one programming question based on the following attributes:
-	•	Difficulty: ${difficulty}  (easy / medium / difficult)
-	•	Type: ${questionType}  (basic / life-situation)
-	•	Language: ${language}  (java / python)
-    •	Basic description: ${description}
+	•	Difficulty: {difficulty} (easy / medium / difficult)
+	•	Type: {type} (basic / life-situation)
+	•	Language: {language} (java / python)
 
 Requirements:
-	1.	The problem should resemble a LeetCode-style question based on the provided basic description.
+	1.	The problem should resemble a LeetCode-style question.
 	2.	Include:
-	•	Clear problem description
+	•	Problem description
 	•	Input/output description
 	•	At least one example
 	3.	The problem should require implementing a function.
 
 Code Requirements:
 	•	Provide a function skeleton only (not the full solution).
-	•	The function must include:
+	•	Include:
 	•	Proper function signature
 	•	Comments indicating where the student should implement logic
 	•	Do NOT include the solution.
 
 Output Format (STRICT):
-	•	First: the full question body
-	•	Then a separator line:
-####
-	•	Then: the code skeleton
+	•	Output must be plain text only.
+	•	Do NOT use any Markdown, including:
+	•	No bold (**)
+	•	No italics (*)
+	•	No headings (#)
+	•	No bullet points or numbered lists
+	•	Do NOT add extra symbols or formatting.
+	•	First write the question body as plain text.
+	•	Then write a new line containing exactly: Here is the code skeleton
+	•	Then write the code skeleton.
 
 Additional Rules:
 	•	Do NOT include explanations, hints, or solutions.
 	•	Ensure the question difficulty matches the requested level.
-	•	If type is “life-situation”, frame the problem using a realistic scenario.
-	•	If type is “basic”, keep it abstract and algorithm-focused.`
+	•	If type is “life-situation”, use a realistic scenario.
+	•	If type is “basic”, keep it algorithm-focused.
+
+⸻
+
+Why this works:
+	•	Explicitly bans Markdown
+	•	Reinforces “plain text only” multiple times
+	•	Defines exact separator usage
+	•	Reduces creative formatting tendencies of smaller models`
 
 
     const response = await client.responses.create({

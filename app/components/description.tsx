@@ -2,7 +2,6 @@
 
 import React, { useState } from "react"
 import Image from "next/image"
-import OpenAI from "openai"
 
 interface QuestionMetadata {
     name: string,
@@ -20,6 +19,7 @@ export function DescriptionBlock() {
         tags: ''
     });
     const [isGenerating, setIsGenerating] = useState(false);
+    const [suggestedSkeleton, setSuggestedSkeleton] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const target = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
@@ -41,19 +41,6 @@ export function DescriptionBlock() {
         setIsGenerating(true);
         try {
             // TODO: Wire this to your LLM endpoint and replace the description with the response.
-            // Example:
-            // const res = await fetch("/api/generate-description", {
-            //   method: "POST",
-            //   headers: { "Content-Type": "application/json" },
-            //   body: JSON.stringify({
-            //     description: form.description,
-            //     difficulty: form.difficulty,
-            //     questionType: form.questionType
-            //   })
-            // });
-            // const data = await res.json();
-            // setForm(prev => ({ ...prev, description: data.description }));
-            const prompt="Hello";
             const response = await fetch ("/api/openai",{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -65,7 +52,18 @@ export function DescriptionBlock() {
                 })
             });
             const data=await response.json();
-            setForm(prev => ({ ...prev, description: data.description ?? "" }));
+            const rawDescription = data.description ?? "";
+            const marker = "Here is the code skeleton";
+            const markerIndex = rawDescription.indexOf(marker);
+            if (markerIndex >= 0) {
+                const cleanedDescription = rawDescription.slice(0, markerIndex).trimEnd();
+                const skeleton = rawDescription.slice(markerIndex + marker.length).trim();
+                setForm(prev => ({ ...prev, description: cleanedDescription }));
+                setSuggestedSkeleton(skeleton.length ? skeleton : null);
+            } else {
+                setForm(prev => ({ ...prev, description: rawDescription }));
+                setSuggestedSkeleton(null);
+            }
             console.log(data)
         } finally {
             setIsGenerating(false);
@@ -98,6 +96,25 @@ export function DescriptionBlock() {
                             className="bg-white text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                         />
                     </div>
+                    {suggestedSkeleton && (
+                        <div className="grid grid-cols-[120px_1fr] items-start gap-4">
+                            <span />
+                            <div className="relative bg-white border border-gray-300 rounded-base p-3 shadow-xs">
+                                <button
+                                    type="button"
+                                    aria-label="Close suggested code skeleton"
+                                    onClick={() => setSuggestedSkeleton(null)}
+                                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                                >
+                                    ×
+                                </button>
+                                <div className="text-sm font-semibold mb-2">Suggested Code Skeleton</div>
+                                <pre className="text-xs whitespace-pre-wrap font-mono text-gray-900">
+                                    {suggestedSkeleton}
+                                </pre>
+                            </div>
+                        </div>
+                    )}
                     <div className="grid grid-cols-[120px_1fr] items-start gap-4">
                         <label className="text-xl">Attributes</label>
                         <div className="grid grid-cols-3 gap-4">
