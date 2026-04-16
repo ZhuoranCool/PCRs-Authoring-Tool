@@ -1,23 +1,15 @@
 'use client'
 
-import React, { useState } from "react"
+import React, { Dispatch, SetStateAction, useState } from "react"
 import Image from "next/image"
+import type { QuestionFormState } from "@/app/page";
 
-interface QuestionMetadata {
-    name: string,
-    description?: string,
-    tags?: string[]
+interface DescriptionBlockProps {
+    form: QuestionFormState;
+    setForm: Dispatch<SetStateAction<QuestionFormState>>;
 }
 
-export function DescriptionBlock() {
-    const [form, setForm] = useState({
-        name: '',
-        description: '',
-        difficulty: 'easy',
-        questionType: 'foundation',
-        language: 'java',
-        tags: ''
-    });
+export function DescriptionBlock({ form, setForm }: DescriptionBlockProps) {
     const [isGenerating, setIsGenerating] = useState(false);
     const [suggestedSkeleton, setSuggestedSkeleton] = useState<string | null>(null);
 
@@ -40,8 +32,7 @@ export function DescriptionBlock() {
         if (!form.description.trim()) return;
         setIsGenerating(true);
         try {
-            // TODO: Wire this to your LLM endpoint and replace the description with the response.
-            const response = await fetch ("/api/openai",{
+            const response = await fetch ("/api/problemCreate",{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -68,7 +59,7 @@ export function DescriptionBlock() {
         } finally {
             setIsGenerating(false);
         }
-    }
+    };
 
     return (
         <div className="bg-gray-200 px-4 py-2 shadow-md">
@@ -185,4 +176,4 @@ export function DescriptionBlock() {
             </div>
         </div>
     )
-}
+    };

@@ -7,9 +7,10 @@ export async function POST(req: Request) {
     const prompt= `You are a coding problem generator.
 
 Generate exactly one programming question based on the following attributes:
-	•	Difficulty: {difficulty} (easy / medium / difficult)
-	•	Type: {type} (basic / life-situation)
-	•	Language: {language} (java / python)
+	•	Description: ${description}
+	•   Difficulty: ${difficulty} (easy / medium / difficult)
+	•	Type: ${questionType} (basic / life-situation)
+	•	Language: ${language} (java / python)
 
 Requirements:
 	1.	The problem should resemble a LeetCode-style question.
