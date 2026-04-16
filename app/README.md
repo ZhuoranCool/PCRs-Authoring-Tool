@@ -16,7 +16,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-To use the `Generate with AI` function, please set your API key in system, refers to [OpenAI Document](https://developers.openai.com/api/docs/quickstart?language=javascript)
+To use the `Generate with AI` function, please set your API key in new file .env.local, refers to [OpenAI Document](https://developers.openai.com/api/docs/quickstart?language=javascript)
 
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
@@ -32,6 +32,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Next Step
+
+1. Add a submit button. 
+
+2. Collect information in problem description, code and test cases. 
+
+3. Connect to existed backend. 
