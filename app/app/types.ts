@@ -1,10 +1,13 @@
 export interface QuestionFormState {
-  name: string;
+  exerciseId: string;
+  title: string;
+  licenseId: string;
   description: string;
   difficulty: string;
   questionType: string;
   language: string;
   tags: string;
+  version: string;
 }
 
 export interface SourceCodeState {

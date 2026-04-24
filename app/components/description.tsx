@@ -69,11 +69,21 @@ export function DescriptionBlock({ form, setForm }: DescriptionBlockProps) {
       {fold && (
         <div className="space-y-4">
           <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-            <label className="text-xl">Name *</label>
+            <label className="text-xl">Title *</label>
             <input
-              id="name"
+              id="title"
               type="text"
-              value={form.name}
+              value={form.title}
+              onChange={handleChange}
+              className="block w-full rounded-md bg-white px-3 py-2.5 text-sm shadow-xs"
+            />
+          </div>
+          <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+            <label className="text-xl">License ID</label>
+            <input
+              id="licenseId"
+              type="text"
+              value={form.licenseId}
               onChange={handleChange}
               className="block w-full rounded-md bg-white px-3 py-2.5 text-sm shadow-xs"
             />
@@ -111,7 +121,7 @@ export function DescriptionBlock({ form, setForm }: DescriptionBlockProps) {
           )}
           <div className="grid grid-cols-[120px_1fr] items-start gap-4">
             <label className="text-xl">Attributes</label>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               <select
                 id="difficulty"
                 value={form.difficulty}
@@ -140,6 +150,14 @@ export function DescriptionBlock({ form, setForm }: DescriptionBlockProps) {
                 <option value="java">Java</option>
                 <option value="python">Python</option>
               </select>
+            <input
+              id="version"
+              type="text"
+              value={form.version}
+              onChange={handleChange}
+              className="block w-full rounded-md bg-white px-3 py-2.5 text-sm shadow-xs"
+              placeholder="Language Version"
+            />
             </div>
           </div>
           <div className="grid grid-cols-[120px_1fr] items-center gap-4">

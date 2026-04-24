@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { DescriptionBlock } from "@/components/description";
 import { SourceCode } from "@/components/sourceCode";
 import { TestSpace } from "@/components/test";
+import { buildPeml } from "@/app/peml";
 import type {
   QuestionFormState,
   SourceCodeState,
@@ -13,14 +14,18 @@ import type {
 } from "@/app/types";
 
 const STORAGE_KEY = "pcrs-authoring-submission";
+const PEML_KEY = "pcrs-authoring-peml";
 
 const initialQuestionForm: QuestionFormState = {
-  name: "",
+  exerciseId: "",
+  title: "",
+  licenseId: "",
   description: "",
   difficulty: "easy",
   questionType: "foundation",
   language: "java",
   tags: "",
+  version: "",
 };
 
 const initialSourceCode: SourceCodeState = {
@@ -58,8 +63,19 @@ export default function Home() {
       sourceCode,
       tests,
     };
+    const peml = buildPeml(payload);
 
     window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    window.sessionStorage.setItem(PEML_KEY, peml);
+
+    const blob = new Blob([peml], { type: "text/plain;charset=utf-8" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "xxx.peml";
+    link.click();
+    window.URL.revokeObjectURL(url);
+
     router.push("/submission");
   };
 
